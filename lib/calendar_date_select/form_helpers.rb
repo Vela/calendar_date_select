@@ -102,7 +102,7 @@ module CalendarDateSelect::FormHelpers
     javascript_options.delete(:format)
 
     options[:id] ||= name
-    options.merge!(:onclick => "new CalendarDateSelect( $(this), #{"{#{javascript_options.keys.map { |k| "#{k}:#{javascript_options[k]}" }.sort.join(', ')}}"} );")
+    options.merge!(:onclick => "new CalendarDateSelect( $(this).next(), #{"{#{javascript_options.keys.map { |k| "#{k}:#{javascript_options[k]}" }.sort.join(', ')}}"} );")
     tag = javascript_options[:hidden] || javascript_options[:embedded] ?
       hidden_field_tag(name, value, options) :
       text_field_tag(name, value, options)
