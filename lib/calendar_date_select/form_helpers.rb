@@ -151,7 +151,11 @@ module CalendarDateSelect::FormHelpers
     
     options.delete(:object)
     options.merge!(:type => (javascript_options[:hidden] || javascript_options[:embedded]) ? "hidden" : "text")
-    options.merge!(:onclick => "new CalendarDateSelect( $(this), #{"{#{javascript_options.keys.map { |k| "#{k}:#{javascript_options[k]}" }.sort.join(', ')}}"} );")
+    if options[:rails4_flag].present? && options[:rails4_flag] == true
+      options.merge!(:onclick => "new CalendarDateSelect( $(this).next(), #{"{#{javascript_options.keys.map { |k| "#{k}:#{javascript_options[k]}" }.sort.join(', ')}}"} );")
+    else
+      options.merge!(:onclick => "new CalendarDateSelect( $(this), #{"{#{javascript_options.keys.map { |k| "#{k}:#{javascript_options[k]}" }.sort.join(', ')}}"} );")
+    end
     tag = ActionView::Helpers::Tags::TextField.new(object, method, self, options).render
 
     calendar_date_select_output(
